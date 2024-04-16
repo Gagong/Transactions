@@ -1,0 +1,56 @@
+server:
+  port: 8080
+  forward-headers-strategy: framework
+  servlet:
+    session:
+      cookie:
+        http-only: true
+
+spring:
+  application:
+    name: "Transactions"
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1GB
+      max-request-size: 1GB
+  datasource:
+    name: primaryDS
+    driver-class-name: ${DATABASE_DRIVER:org.postgresql.Driver}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/transactions}
+    username: ${DATABASE_USER:postgres}
+    password: ${DATABASE_PASSWORD:JaVaCooL234137}
+  cache:
+    type: SIMPLE
+  jpa:
+    properties:
+      hibernate:
+        synonyms: true
+        default_batch_fetch_size: 100
+        order_updates: true
+        order_inserts: true
+        batch_versioned_data: true
+        batch_fetch_style: DYNAMIC
+        criteria:
+          literal_handling_mode: BIND
+        connection:
+          includeSynonyms: true
+          charSet: UTF-8
+          url: jdbc:postgresql://localhost:5432/transactions
+          username: postgres
+          password: JaVaCooL234137
+        jdbc:
+          batch_size: 100
+        hbm2ddl:
+          auto: update
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+  main:
+    allow-bean-definition-overriding: true
+    banner-mode: off
+
+springdoc:
+  packages-to-scan: org.io.transactions
+  show-actuator: true
