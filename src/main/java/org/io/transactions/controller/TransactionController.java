@@ -24,7 +24,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping("transactions")
 @RequiredArgsConstructor
-@Tag(name="Контроллер транзакций", description="Контроллер для проведения транзакций")
+@Tag(name = "Контроллер транзакций", description = "Контроллер для проведения транзакций")
 public class TransactionController {
 
 	private final TransactionRepository transactionRepository;

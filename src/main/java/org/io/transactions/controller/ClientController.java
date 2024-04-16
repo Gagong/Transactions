@@ -23,7 +23,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping("client")
 @RequiredArgsConstructor
-@Tag(name="Контроллер клиентов", description="Контроллер для блокировки, разблокировки, проверки блокировки, проверки типа блокировки и создания клиента")
+@Tag(name = "Контроллер клиентов", description = "Контроллер для блокировки, разблокировки, проверки блокировки, проверки типа блокировки и создания клиента")
 public class ClientController {
 
 	private final ClientRepository clientRepository;
@@ -36,11 +36,12 @@ public class ClientController {
 	)
 	@Transactional
 	@PatchMapping("block/{clientId}/{blockType}")
-	public void block(@Parameter(description = "Идентификатор клиента") @PathVariable final Long clientId,
+	public String block(@Parameter(description = "Идентификатор клиента") @PathVariable final Long clientId,
 										@Parameter(description = "Тип блокировки") @PathVariable final BlockType blockType) {
 		clientRepository.findById(clientId).ifPresentOrElse(client -> client.setBlocked(true).setBlockType(blockType), () -> {
 			throw new RuntimeException("Клиент не найден");
 		});
+		return String.format("Клиент %s заблокирован типом %s", clientId, blockType.getValue());
 	}
 
 	@Operation(
@@ -49,10 +50,11 @@ public class ClientController {
 	)
 	@Transactional
 	@PatchMapping("unblock/{clientId}")
-	public void unblock(@Parameter(description = "Идентификатор клиента") @PathVariable final Long clientId) {
+	public String unblock(@Parameter(description = "Идентификатор клиента") @PathVariable final Long clientId) {
 		clientRepository.findById(clientId).ifPresentOrElse(client -> client.setBlocked(false).setBlockType(null), () -> {
 			throw new RuntimeException("Клиент не найден");
 		});
+		return String.format("Клиент %s разблокирован", clientId);
 	}
 
 	@Operation(
@@ -88,8 +90,8 @@ public class ClientController {
 			description = "Позволяет создать случайного клиента для тестирования"
 	)
 	@PostMapping("generateRandomClient")
-	public void generateRandomClient() {
-		clientRepository.save(
+	public Client generateRandomClient() {
+		return clientRepository.save(
 				Client.builder()
 						.name(faker.name().fullName())
 						.age(faker.random().nextInt(1, 100))

@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import org.io.transactions.enums.TransactionStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Getter

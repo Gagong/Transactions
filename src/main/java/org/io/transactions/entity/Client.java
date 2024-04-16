@@ -2,7 +2,6 @@ package org.io.transactions.entity;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -14,13 +13,14 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import org.io.transactions.enums.BlockType;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
@@ -37,6 +37,7 @@ public class Client implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column
 	@Schema(description = "Идентификатор клиента")
 	private Long id;
