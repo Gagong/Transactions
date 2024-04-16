@@ -19,7 +19,7 @@ spring:
     driver-class-name: ${DATABASE_DRIVER:org.postgresql.Driver}
     url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/transactions}
     username: ${DATABASE_USER:postgres}
-    password: ${DATABASE_PASSWORD:JaVaCooL234137}
+    password: ${DATABASE_PASSWORD:postgres}
   cache:
     type: SIMPLE
   jpa:
@@ -38,7 +38,7 @@ spring:
           charSet: UTF-8
           url: jdbc:postgresql://localhost:5432/transactions
           username: postgres
-          password: JaVaCooL234137
+          password: postgres
         jdbc:
           batch_size: 100
         hbm2ddl:
